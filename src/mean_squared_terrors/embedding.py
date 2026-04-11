@@ -89,10 +89,11 @@ def blend_embeddings(product_emb, review_emb, asin_alpha, products):
     return (combined / norms).astype(np.float32)
 
 
-def search(query, model, index, index_df, k=5, price_bucket=None):
+def faiss_search(query, model, index, index_df, k=5, price_bucket=None):
     """
     Encode query, search FAISS index, optionally filter by price_bucket.
     Returns top-k results with product metadata and cosine score.
+    Simple retrieval used in notebook 03 — no re-ranking or quality scores.
     """
     q_vec  = model.encode([query], normalize_embeddings=True,
                            convert_to_numpy=True).astype(np.float32)

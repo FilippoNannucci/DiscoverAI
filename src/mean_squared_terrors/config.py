@@ -33,6 +33,11 @@ W_RATING  = 0.3
 ALPHA_MIN = 0.35
 ALPHA_MAX = 0.70
 
+# ── Search & re-ranking ───────────────────────────────────────────────────────
+BETA_QUALITY    = 0.12   # quality score weight in final search score
+BETA_POPULARITY = 0.05   # popularity score weight in final search score
+N_CANDIDATES    = 50     # FAISS candidates retrieved before re-ranking
+
 # ── Details keys ──────────────────────────────────────────────────────────────
 # Semantically meaningful keys from 'details' — excludes physical dims, dates, codes
 SEMANTIC_DETAIL_KEYS = {
