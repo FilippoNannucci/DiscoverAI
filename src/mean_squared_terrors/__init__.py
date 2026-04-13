@@ -1,1 +1,1 @@
-"""Mean-Squared-Terrors — shared utilities for data cleaning, EDA, and embedding."""
+"""Mean-Squared-Terrors — shared utilities for data cleaning, EDA, embedding, and summarization."""
