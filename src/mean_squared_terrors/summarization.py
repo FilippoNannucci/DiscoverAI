@@ -1,19 +1,18 @@
 """Summarization and entity extraction utilities (notebook 05)."""
 
-from __future__ import annotations
-
 import os
 import re
 import subprocess
 import sys
 import time
-from typing import Dict, List
 
 import pandas as pd
 import spacy
 import torch
 from transformers import BartForConditionalGeneration, BartTokenizerFast
 
+
+# ── Entity patterns ───────────────────────────────────────────────────────────
 INGREDIENT_PATTERN = (
     r"\b(vitamin [a-z]\d{0,2}|hyaluronic acid|retinol|niacinamide|salicylic acid|"
     r"benzoyl peroxide|glycolic acid|collagen|keratin|biotin|caffeine|"
@@ -37,10 +36,12 @@ USE_PATTERNS = [
     r"\bfor (men|women|adults?|seniors?)\b",
 ]
 
+# ── Summarization model ───────────────────────────────────────────────────────
 BART_MODEL_NAME = "facebook/bart-large-cnn"
 
 
-def setup_notebook_dependencies() -> None:
+# ── Setup and data loading ────────────────────────────────────────────────────
+def setup_notebook_dependencies():
     """Install optional dependencies and mount Google Drive on Colab."""
     try:
         from google.colab import drive  # type: ignore
@@ -66,19 +67,20 @@ def setup_notebook_dependencies() -> None:
     print("Dependencies ready.")
 
 
-def get_device() -> int:
+def get_device():
     """Return transformers-compatible device id: 0 for CUDA GPU else -1."""
     return 0 if torch.cuda.is_available() else -1
 
 
-def load_clean_data(data_dir: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+def load_clean_data(data_dir: str):
     """Load products and reviews cleaned datasets."""
     products = pd.read_csv(os.path.join(data_dir, "products_cleaned.csv"))
     reviews = pd.read_csv(os.path.join(data_dir, "reviews_cleaned.csv"))
     return products, reviews
 
 
-def extract_entities(text: str, nlp_model, asin: str = "") -> Dict[str, List[str]]:
+# ── Entity extraction ─────────────────────────────────────────────────────────
+def extract_entities(text: str, nlp_model, asin: str = "") -> dict:
     """Extract ingredients, certifications, use cases and brand entities from text."""
     if not text or pd.isna(text):
         return {"ingredients": [], "certifications": [], "use_cases": [], "brands": []}
@@ -90,7 +92,7 @@ def extract_entities(text: str, nlp_model, asin: str = "") -> Dict[str, List[str
     cert_matches = re.findall(CERT_PATTERN, text_lower, re.IGNORECASE)
     certs = list(set(m.lower().strip() for m in cert_matches))
 
-    use_cases: List[str] = []
+    use_cases = []
     for pattern in USE_PATTERNS:
         matches = re.findall(pattern, text_lower, re.IGNORECASE)
         use_cases.extend(
@@ -121,9 +123,9 @@ def build_entities_dataframe(products: pd.DataFrame, reviews: pd.DataFrame, nlp_
         )
         rev_ents = extract_entities(rev_text[:1000], nlp_model)
 
-        all_ings = list(set(ents["ingredients"] + rev_ents["ingredients"]))
+        all_ings  = list(set(ents["ingredients"] + rev_ents["ingredients"]))
         all_certs = list(set(ents["certifications"] + rev_ents["certifications"]))
-        all_uses = list(set(ents["use_cases"] + rev_ents["use_cases"]))
+        all_uses  = list(set(ents["use_cases"] + rev_ents["use_cases"]))
 
         entity_records.append(
             {
@@ -144,6 +146,7 @@ def build_entities_dataframe(products: pd.DataFrame, reviews: pd.DataFrame, nlp_
     return pd.DataFrame(entity_records)
 
 
+# ── Summarization ─────────────────────────────────────────────────────────────
 def build_summarizer(device: int):
     """Load BART model/tokenizer and return a pipeline-compatible callable."""
     print("Loading BART summarization model...")
@@ -215,7 +218,7 @@ def summarize_product(asin, prod_row, rev_df, summarizer, use_model=True):
     if not pos_sents and not neg_sents and all_sents:
         input_parts.append("Customer feedback: " + " ".join(all_sents))
 
-    model_input = " ".join(input_parts)
+    model_input = " ".join(input_parts)[:800]
     if len(model_input.strip()) < 40:
         return {
             "parent_asin": asin,
@@ -229,7 +232,12 @@ def summarize_product(asin, prod_row, rev_df, summarizer, use_model=True):
     method = "extractive"
     if use_model:
         try:
-            summary = summarizer(model_input, max_length=95, min_length=30, do_sample=False)[0]["summary_text"]
+            summary = summarizer(
+                model_input,
+                max_length=95,
+                min_length=30,
+                do_sample=False,
+            )[0]["summary_text"]
             method = "model"
         except Exception:
             summary = " ".join(all_sents[:3]) if all_sents else ""
@@ -252,6 +260,7 @@ def summarize_product(asin, prod_row, rev_df, summarizer, use_model=True):
     }
 
 
+# ── Batch execution and merge ─────────────────────────────────────────────────
 def run_batch_summarization(
     products: pd.DataFrame,
     reviews: pd.DataFrame,
@@ -259,7 +268,12 @@ def run_batch_summarization(
     data_dir: str,
     save_every: int = 500,
 ):
-    """Run summarization over all products with periodic checkpoint saving."""
+    """
+    Batch summarization over all products.
+
+    Uses BART for products with >=5 reviews, extractive fallback otherwise.
+    Saves partial checkpoints every `save_every` items.
+    """
     print("Starting batch summarization...")
     summaries = []
     t0 = time.time()
