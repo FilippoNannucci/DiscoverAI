@@ -10,7 +10,7 @@ CAP_DETAILS_TOKENS  = 80   # max tokens from semantic details
 # ── Reviews ───────────────────────────────────────────────────────────────────
 MIN_REVIEW_TOKENS = 25  # min tokens per review (removes "Love it!!", "Fast shipping", etc.)
 
-# Balanced rating selection — reduces 5-star bias from ~70% raw → ~48%
+# Balanced rating selection — reduces 5-star bias from ~62% raw → ~46%
 REVIEWS_PER_RATING = {
     5: 5,  # max 5 five-star reviews (most helpful first)
     4: 3,  # max 3 four-star

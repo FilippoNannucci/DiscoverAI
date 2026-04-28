@@ -37,7 +37,7 @@ USE_PATTERNS = [
 ]
 
 # ── Summarization model ───────────────────────────────────────────────────────
-BART_MODEL_NAME = "facebook/bart-large-cnn"
+BART_MODEL_NAME = "sshleifer/distilbart-cnn-12-6"
 
 
 # ── Setup and data loading ────────────────────────────────────────────────────
