@@ -73,7 +73,7 @@ score = similarity + β_quality · quality_score + β_pop · popularity_score
 
 Extracts structured, human-readable intelligence from the raw review text.
 
-**Summarization.** For each product, reviews are split into positive (≥4 stars) and negative (≤2 stars) buckets. Informative sentences are extracted (≥12 words, not starting with "I", <300 chars) and deduplicated. The resulting text is fed to **DistilBART-CNN-12-6** (a distilled version of BART fine-tuned on CNN/DailyMail summarization), which produces a concise summary plus explicit pros and cons fields. Products with fewer than 5 reviews fall back to extractive summarization (top sentences only) to avoid hallucination on thin evidence.
+**Summarization.** For each product, reviews are split into positive (≥4 stars) and negative (≤2 stars) buckets. Informative sentences are extracted (≥12 words, not starting with "I", <300 chars) and deduplicated. The resulting text is fed to **BART-Large-CNN** (BART fine-tuned on CNN/DailyMail summarization), which produces a concise summary plus explicit pros and cons fields. Products with fewer than 5 reviews fall back to extractive summarization (top sentences only) to avoid hallucination on thin evidence.
 
 **Entity extraction.** Regex patterns identify domain-specific entities directly from product text and review snippets: active ingredients (retinol, niacinamide, hyaluronic acid, SPF, omega-3, …), certifications (organic, vegan, cruelty-free, paraben-free, …), and use-case targets (skin type, hair type, age group, body area). spaCy NER (`en_core_web_sm`) is run on top to extract brand mentions.
 
@@ -100,7 +100,7 @@ Gradio web interface integrating the full pipeline. Three tabs:
 | `eda.py` | Plotting helpers for NB02 |
 | `embedding.py` | MPNet encoding, weighted review aggregation, dynamic alpha blending, FAISS index |
 | `search.py` | `search`, `search_v2`, `search_v3`, negation/synonym/price parsing, recommendation |
-| `summarization.py` | DistilBART summarization, spaCy entity extraction, batch processing, profile merge |
+| `summarization.py` | BART-Large-CNN summarization, spaCy entity extraction, batch processing, profile merge |
 
 ---
 
