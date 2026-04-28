@@ -51,8 +51,7 @@ def setup_notebook_dependencies():
     except ModuleNotFoundError:
         print("Running outside Colab: skipping Drive mount.")
 
-    for pkg in ["gradio", "spacy"]:
-        subprocess.run([sys.executable, "-m", "pip", "install", "-q", pkg], check=False)
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "spacy"], check=False)
 
     try:
         spacy.load("en_core_web_sm")
@@ -246,16 +245,12 @@ def summarize_product(asin, prod_row, rev_df, summarizer, use_model=True):
 
     pros = "; ".join(pos_sents[:2])
     cons = "; ".join(neg_sents[:2])
-    best_for = ""
-    if isinstance(prod_row.get("use_cases", ""), str) and prod_row.get("use_cases", "").strip():
-        best_for = prod_row["use_cases"].split("|")[0].strip()
 
     return {
         "parent_asin": asin,
         "summary_full": summary.strip(),
         "pros": pros.strip(),
         "cons": cons.strip(),
-        "best_for": best_for.strip(),
         "method": method,
     }
 
@@ -306,10 +301,14 @@ def run_batch_summarization(
 
 
 def build_product_profiles(data_dir: str, summaries_df: pd.DataFrame) -> pd.DataFrame:
-    """Merge embedding index with summaries and extracted entities."""
+    """Merge embedding index with summaries and extracted entities.
+
+    Requires `embedding_index_enriched.csv` from notebook 04.
+    `best_for` is derived from the first entry in `use_cases` (entities).
+    """
     idx = pd.read_csv(os.path.join(data_dir, "embedding_index_enriched.csv"))
     idx = idx.merge(
-        summaries_df[["parent_asin", "summary_full", "pros", "cons", "best_for", "method"]],
+        summaries_df[["parent_asin", "summary_full", "pros", "cons", "method"]],
         on="parent_asin",
         how="left",
     )
@@ -328,5 +327,9 @@ def build_product_profiles(data_dir: str, summaries_df: pd.DataFrame) -> pd.Data
         ],
         on="parent_asin",
         how="left",
+    )
+
+    idx["best_for"] = idx["use_cases"].fillna("").apply(
+        lambda x: x.split("|")[0].strip() if x else ""
     )
     return idx
