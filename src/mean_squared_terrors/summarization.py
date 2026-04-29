@@ -2,12 +2,9 @@
 
 import os
 import re
-import subprocess
-import sys
 import time
 
 import pandas as pd
-import spacy
 import torch
 from transformers import BartForConditionalGeneration, BartTokenizerFast
 
@@ -40,42 +37,10 @@ USE_PATTERNS = [
 BART_MODEL_NAME = "facebook/bart-large-cnn"
 
 
-# ── Setup and data loading ────────────────────────────────────────────────────
-def setup_notebook_dependencies():
-    """Install optional dependencies and mount Google Drive on Colab."""
-    try:
-        from google.colab import drive  # type: ignore
-
-        drive.mount("/content/drive")
-        print("Google Drive mounted (Colab).")
-    except ModuleNotFoundError:
-        print("Running outside Colab: skipping Drive mount.")
-
-    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "spacy"], check=False)
-
-    try:
-        spacy.load("en_core_web_sm")
-        print("spaCy en_core_web_sm: already installed")
-    except OSError:
-        print("Downloading spaCy en_core_web_sm...")
-        subprocess.run(
-            [sys.executable, "-m", "spacy", "download", "en_core_web_sm"],
-            check=False,
-        )
-
-    print("Dependencies ready.")
-
-
+# ── Device ────────────────────────────────────────────────────────────────────
 def get_device():
     """Return transformers-compatible device id: 0 for CUDA GPU else -1."""
     return 0 if torch.cuda.is_available() else -1
-
-
-def load_clean_data(data_dir: str):
-    """Load products and reviews cleaned datasets."""
-    products = pd.read_csv(os.path.join(data_dir, "products_cleaned.csv"))
-    reviews = pd.read_csv(os.path.join(data_dir, "reviews_cleaned.csv"))
-    return products, reviews
 
 
 # ── Entity extraction ─────────────────────────────────────────────────────────
