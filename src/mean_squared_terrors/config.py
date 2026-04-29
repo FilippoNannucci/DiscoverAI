@@ -1,5 +1,12 @@
 # Configuration — change only here, never inside functions
 
+from pathlib import Path
+
+# ── I/O ───────────────────────────────────────────────────────────────────────
+# All inputs and outputs live in src/io/ (not tracked on Git).
+# Resolved from the location of this file so it works regardless of cwd.
+IO_DIR = str(Path(__file__).resolve().parent.parent / "io")
+
 # ── Products ──────────────────────────────────────────────────────────────────
 MIN_REVIEWS         = 10   # products with fewer reviews are excluded
 CAP_PRODUCT_TOKENS  = 300  # token cap for product text (~390 subword tokens, safe for MPNet 512)

@@ -1,4 +1,5 @@
 data/
+src/io/
 .venv/
 .DS_Store
 .ipynb_checkpoints/
