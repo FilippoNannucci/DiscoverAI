@@ -7,3 +7,16 @@ textblob
 sentence-transformers
 faiss-cpu
 torch
+transformers
+spacy
+gradio
+
+# Semantic search extensions
+rank_bm25
+
+# Vector database
+chromadb
+
+# Embedding visualization
+umap-learn
+plotly
