@@ -1,0 +1,39 @@
+{
+  "n_products_total": 7593,
+  "summary_coverage_pct": 99.85738733599544,
+  "pros_coverage_pct": 95.92127780946949,
+  "cons_coverage_pct": 71.24928693667998,
+  "summary_avg_chars": 142.0931162524993,
+  "method_dist": {
+    "model": 5727,
+    "extractive": 1285
+  },
+  "ingredients_coverage_pct": 8.758066640326618,
+  "cert_coverage_pct": 19.67601738443303,
+  "avg_ingredients": 0.12379823521664692,
+  "avg_certs": 0.2990912682734097,
+  "top_ingredients": {
+    "collagen": 77,
+    "caffeine": 74,
+    "magnesium": 68,
+    "probiotics": 58,
+    "vitamin c": 57,
+    "probiotic": 57,
+    "vitamin e": 36,
+    "aloe vera": 35,
+    "coconut oil": 35,
+    "prebiotic": 34
+  },
+  "top_certifications": {
+    "natural": 1002,
+    "organic": 355,
+    "vegan": 212,
+    "gluten free": 182,
+    "non-gmo": 152,
+    "hypoallergenic": 71,
+    "gluten-free": 67,
+    "fda": 42,
+    "non gmo": 38,
+    "fragrance free": 23
+  }
+}

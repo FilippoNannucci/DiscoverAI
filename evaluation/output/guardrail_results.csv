@@ -1,0 +1,25 @@
+query,expected,pred,ok,reason,confidence
+who won the champions league last year,off,off,True,off_topic_structural,0.92
+best italian recipes for pasta carbonara,off,in,False,passed,0.347
+what is the capital of france,off,off,True,off_topic_structural,0.92
+how to fix a python import error,off,off,True,off_topic_semantic,1.41
+weather forecast in rome tomorrow,off,off,True,off_topic_structural,0.92
+bitcoin price today,off,off,True,off_topic_structural,0.92
+flights from milan to new york,off,off,True,off_topic_semantic,1.07
+how to invest in stock market,off,off,True,off_topic_structural,0.92
+tell me a joke about cats,off,off,True,off_topic_structural,0.92
+breaking news about elections,off,off,True,off_topic_semantic,0.769
+latest iphone 15 review,off,off,True,off_topic_structural,0.92
+how to learn javascript fast,off,off,True,off_topic_semantic,0.394
+moisturizer for dry sensitive skin,in,in,True,passed,0.685
+vitamin c supplement 1000mg,in,in,True,passed,0.638
+electric toothbrush rechargeable,in,in,True,passed,0.749
+affordable shampoo for thinning hair,in,in,True,passed,0.581
+biotin gummies hair growth,in,in,True,passed,0.777
+sleep aid without melatonin,in,in,True,passed,0.653
+collagen powder unflavored,in,in,True,passed,0.775
+sunscreen face spf 50,in,in,True,passed,0.63
+help me sleep at night,in,in,True,passed,0.471
+stop my hair from falling out,in,in,True,passed,0.496
+how do i get rid of acne,in,in,True,passed,0.439
+something for joint pain,in,in,True,passed,0.721
