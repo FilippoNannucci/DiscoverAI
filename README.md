@@ -54,16 +54,17 @@ Implements and evaluates the retrieval and re-ranking pipeline.
 **Base search.** A query is encoded with the same MPNet model, and FAISS retrieves the top-50 candidates by cosine similarity. Candidates are then re-ranked with:
 
 ```
-score = similarity + β_quality · quality_score + β_pop · popularity_score
+score = similarity + β_quality · quality_score
 ```
 
-`quality_score` combines average rating, fraction of positive reviews, fraction of negative reviews, and log-helpful-votes. `popularity_score` is the log-normalized review count. Both are min-max normalized to `[0, 1]`. The betas (`0.12` and `0.05`) are small enough that a low-quality product cannot overtake a genuinely more relevant one purely on popularity.
+`quality_score` combines average rating, fraction of positive reviews, fraction of negative reviews, and log-helpful-votes, min-max normalized to `[0, 1]`. β_quality = 0.12 is small enough that a low-quality product cannot overtake a genuinely more relevant one purely on quality signal. A popularity term was evaluated but disabled after ablation — it degraded MRR by ~1.8 % (see `08_Evaluation.ipynb`).
 
-**Three search variants developed iteratively:**
+**Four search variants developed iteratively:**
 
 - `search` — baseline similarity + fixed re-ranking.
 - `search_v2` — adds negation filtering: terms after "without", "no", "free of" are detected and used to post-filter results that mention those terms in product text.
-- `search_v3` (production) — adds synonym expansion (e.g. "SPF" → "sunscreen", "omega 3" → "fish oil"), price-intent parsing ("cheap", "affordable", "budget" → price bucket filter), dosage normalization, and **adaptive beta**: when the mean similarity across the 50 retrieved candidates is below 0.65 (query is generic or ambiguous), the quality weight increases from 0.12 to 0.20, falling back on crowd wisdom rather than noisy similarity scores.
+- `search_v3` — adds synonym expansion (e.g. "SPF" → "sunscreen", "omega 3" → "fish oil"), price-intent parsing ("cheap", "affordable", "budget" → price bucket filter), dosage normalization, and **adaptive beta**: when the mean similarity across the 50 retrieved candidates is below 0.65 (query is generic or ambiguous), the quality weight increases from 0.12 to 0.20, falling back on crowd wisdom rather than noisy similarity scores.
+- `search_v4` (production) — hybrid BM25 + semantic retrieval with Reciprocal Rank Fusion, achieving the highest NDCG@5 across all systems on the 37-query benchmark.
 
 **Recommendation.** A separate function retrieves the five most similar products to a given ASIN, operating on the combined embedding matrix directly without going through the query encoder.
 
@@ -91,6 +92,29 @@ Gradio web interface integrating the full pipeline. Three tabs:
 
 ---
 
+### 07 · Embedding Visualization
+
+Interactive 2-D visualization of the product embedding space. UMAP reduces the combined embeddings (7,604 × 768) to 2-D; Plotly renders an interactive scatter plot where each point is a product, coloured by macro-category, price bucket, or average rating. A query-overlay mode projects any query into the same space and highlights the top-k nearest products with dotted lines.
+
+---
+
+### 08 · Evaluation
+
+Quantitative benchmark of the full retrieval pipeline. 38 hand-crafted queries with intent tags (semantic, price, negation, dosage, brand, off-topic) and pseudo-relevance judgments at four levels (keyword matching on `product_text_base`). Metrics: NDCG@5, MRR, Recall@5, Precision@5, MAP@10.
+
+Key results (37 scorable queries, k=5):
+
+| System | NDCG@5 | MRR | Notes |
+|--------|--------|-----|-------|
+| BM25 (baseline) | 0.524 | 0.803 | strong on lexical queries |
+| semantic (no re-rank) | 0.522 | **0.855** | best top-1 result |
+| search_v3 | 0.505 | 0.722 | after ablation-driven fixes |
+| **hybrid_v4** (production) | **0.526** | 0.760 | best NDCG overall |
+
+Also includes: ablation studies for β weights and search_v3 modules, per-intent breakdown, MRR top-1 regression analysis, summarization/entity coverage stats, and guardrail confusion matrix (F1 = 0.957).
+
+---
+
 ## Source modules (`src/mean_squared_terrors/`)
 
 | Module | Role |
@@ -99,8 +123,15 @@ Gradio web interface integrating the full pipeline. Three tabs:
 | `cleaning.py` | Text normalization, balanced rating sampling, product text construction |
 | `eda.py` | Plotting helpers for NB02 |
 | `embedding.py` | MPNet encoding, weighted review aggregation, dynamic alpha blending, FAISS index |
+| `embedding_viz.py` | UMAP projection, Plotly scatter plots, query-overlay visualization |
 | `search.py` | `search`, `search_v2`, `search_v3`, negation/synonym/price parsing, recommendation |
+| `search_extended.py` | `search_v4` hybrid BM25+semantic retrieval, MMR reranking |
 | `summarization.py` | BART-Large-CNN summarization, spaCy entity extraction, batch processing, profile merge |
+| `guardrail.py` | Off-topic query detection (keyword blacklist + semantic similarity) |
+| `vector_db.py` | ChromaDB integration for persistent vector storage |
+| `eval_set.py` | 38 hand-crafted evaluation queries with relevance specs |
+| `eval_metrics.py` | NDCG@K, MRR, Recall@K, Precision@K, MAP@K + relevance-judgment scorer |
+| `run_evaluation.py` | End-to-end evaluation runner — reproduces all tables in NB08 |
 
 ---
 
