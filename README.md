@@ -16,7 +16,7 @@ The key design decision here is **balanced rating sampling**: instead of keeping
 
 Product text is constructed by concatenating title, brand, features, description, and selected `details` fields (item form, skin type, active ingredients, etc.). Fields are capped by token count so the final text fits within MPNet's 512-token limit.
 
-**Output:** 7,647 products · 318k cleaned reviews · 57k balanced reviews.
+**Output:** 7,647 products · 319k cleaned reviews · 57k balanced reviews. (NB03 further drops 43 products without reviews ≥ 25 tokens, leaving **7,604 indexed products** in the searchable system.)
 
 ---
 
@@ -43,7 +43,7 @@ combined = alpha * product_emb + (1 - alpha) * review_emb
 
 Alpha is not fixed: it scales with the product's review signal strength. Products with few or low-quality reviews get a higher alpha (product text dominates); products with rich review evidence get a lower alpha (review voice matters more). The range is `[0.35, 0.70]`.
 
-**Index.** All combined embeddings are normalized and loaded into a FAISS `IndexFlatIP` (exact inner-product search). Approximate indices (IVF, HNSW) were considered but rejected: at ~7.6k products, exact search adds negligible latency while guaranteeing no missed neighbours.
+**Index.** All combined embeddings are normalized and loaded into a FAISS `IndexFlatIP` (exact inner-product search). Approximate indices (IVF, HNSW) were considered but rejected: at 7,604 products, exact search adds negligible latency while guaranteeing no missed neighbours.
 
 ---
 

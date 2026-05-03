@@ -1,7 +1,7 @@
 """
 embedding_viz.py — 2-D visualisation of the embedding space.
 
-Uses UMAP to project the combined embeddings (~7,593 × 768) to 2-D and
+Uses UMAP to project the combined embeddings (~7,604 × 768) to 2-D and
 Plotly to render an interactive scatter plot where each point is a product.
 
 Functionality:
