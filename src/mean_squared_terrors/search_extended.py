@@ -15,7 +15,7 @@ Both are designed to compose with the existing pipeline::
     results = search_v4(query, model, faiss_index, bm25, index_df, k=5)
 
 `search_v4` is the recommended production default: on the internal benchmark
-(see `evaluation/08_Evaluation.ipynb`) it achieves the highest NDCG@5 across
+(see `08_Evaluation.ipynb`) it achieves the highest NDCG@5 across
 all retrieval systems by combining the lexical precision of BM25 with the
 semantic recall of MPNet.
 

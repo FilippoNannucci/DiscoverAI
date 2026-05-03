@@ -368,7 +368,7 @@ def search_v3(
     - Dosage filter (1000mg, SPF 50, IU, …)
     - min_rating optional (off by default — caller can pass e.g. 3.5 to enable
       a hard quality cut). Trade-off: enabling it raises perceived precision
-      but lowers recall by ~1.6% NDCG@5; see evaluation/08_Evaluation.ipynb.
+      but lowers recall by ~1.6% NDCG@5; see 08_Evaluation.ipynb.
     - Adaptive beta_quality: 0.20 when mean similarity < 0.65, 0.12 otherwise
     - Negation filter inherited from search_v2
     """

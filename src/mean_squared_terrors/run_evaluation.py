@@ -3,13 +3,13 @@ Single-entry evaluation runner.
 
 Reproduces the entire benchmark used in 08_Evaluation.ipynb. Reads the
 artefacts produced by notebooks 01–04 (combined embeddings + FAISS index +
-enriched index) and writes all metric tables to ``evaluation/output/``.
+enriched index) and writes all metric tables to ``data/eval_output/``.
 
 Usage (from repo root)::
 
     # produce the artefacts first by running notebooks 01 → 04, which write
-    # to src/io/. Then:
-    python evaluation/run_evaluation.py
+    # to data/. Then:
+    python src/mean_squared_terrors/run_evaluation.py
 
 The script is broken into clear stages so it can be re-executed end-to-end
 or single-stage. Each stage prints a header with timings.
@@ -28,22 +28,21 @@ import numpy as np
 import pandas as pd
 import faiss
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT / "src"))
-sys.path.insert(0, str(ROOT / "evaluation"))
 
-from mean_squared_terrors import search as team_search           # noqa: E402
-from mean_squared_terrors import search_extended as team_extended  # noqa: E402
-from eval_set import EVAL_QUERIES                                # noqa: E402
-from eval_metrics import (                                       # noqa: E402
+from mean_squared_terrors import search as team_search                  # noqa: E402
+from mean_squared_terrors import search_extended as team_extended       # noqa: E402
+from mean_squared_terrors.eval_set import EVAL_QUERIES                  # noqa: E402
+from mean_squared_terrors.eval_metrics import (                         # noqa: E402
     build_qrels, ndcg_at_k, mrr, recall_at_k,
     precision_at_k, average_precision, aggregate_metrics,
 )
-from rank_bm25 import BM25Okapi                                  # noqa: E402
+from rank_bm25 import BM25Okapi                                         # noqa: E402
 
-OUT = ROOT / "evaluation" / "output"
-OUT.mkdir(exist_ok=True)
-IO  = ROOT / "src" / "io"
+OUT = ROOT / "data" / "eval_output"
+OUT.mkdir(parents=True, exist_ok=True)
+IO  = ROOT / "data"
 
 
 def stage(name: str):
