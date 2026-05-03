@@ -357,7 +357,7 @@ def search_v3(
     index_df: pd.DataFrame,
     k: int = 5,
     price_buckets: list = None,
-    min_rating: float = 3.5,
+    min_rating: float = None,
     beta_quality: float = None,
     beta_popularity: float = BETA_POPULARITY,
     verbose: bool = False,
@@ -366,7 +366,9 @@ def search_v3(
     Search v3 — all improvements combined:
     - Synonym expansion for implicit queries
     - Dosage filter (1000mg, SPF 50, IU, …)
-    - min_rating default 3.5 (removes low-quality results automatically)
+    - min_rating optional (off by default — caller can pass e.g. 3.5 to enable
+      a hard quality cut). Trade-off: enabling it raises perceived precision
+      but lowers recall by ~1.6% NDCG@5; see evaluation/08_Evaluation.ipynb.
     - Adaptive beta_quality: 0.20 when mean similarity < 0.65, 0.12 otherwise
     - Negation filter inherited from search_v2
     """
