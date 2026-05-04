@@ -16,7 +16,7 @@ The key design decision here is **balanced rating sampling**: instead of keeping
 
 Product text is constructed by concatenating title, brand, features, description, and selected `details` fields (item form, skin type, active ingredients, etc.). Fields are capped by token count so the final text fits within MPNet's 512-token limit.
 
-**Output:** 7,647 products · 319k cleaned reviews · 57k balanced reviews. (NB03 further drops 43 products without reviews ≥ 25 tokens, leaving **7,604 indexed products** in the searchable system.)
+**Output:** 7,647 products · 318k cleaned reviews · 57k balanced reviews. (NB03 further drops 54 products without reviews ≥ 25 tokens, leaving **7,593 indexed products** in the searchable system.)
 
 ---
 
@@ -43,7 +43,7 @@ combined = alpha * product_emb + (1 - alpha) * review_emb
 
 Alpha is not fixed: it scales with the product's review signal strength. Products with few or low-quality reviews get a higher alpha (product text dominates); products with rich review evidence get a lower alpha (review voice matters more). The range is `[0.35, 0.70]`.
 
-**Index.** All combined embeddings are normalized and loaded into a FAISS `IndexFlatIP` (exact inner-product search). Approximate indices (IVF, HNSW) were considered but rejected: at 7,604 products, exact search adds negligible latency while guaranteeing no missed neighbours.
+**Index.** All combined embeddings are normalized and loaded into a FAISS `IndexFlatIP` (exact inner-product search). Approximate indices (IVF, HNSW) were considered but rejected: at 7,593 products, exact search adds negligible latency while guaranteeing no missed neighbours.
 
 ---
 
@@ -63,7 +63,7 @@ score = similarity + β_quality · quality_score
 
 - `search` — baseline similarity + fixed re-ranking.
 - `search_v2` — adds negation filtering: terms after "without", "no", "free of" are detected and used to post-filter results that mention those terms in product text.
-- `search_v3` — adds synonym expansion (e.g. "SPF" → "sunscreen", "omega 3" → "fish oil"), price-intent parsing ("cheap", "affordable", "budget" → price bucket filter), dosage normalization, and **adaptive beta**: when the mean similarity across the 50 retrieved candidates is below 0.65 (query is generic or ambiguous), the quality weight increases from 0.12 to 0.20, falling back on crowd wisdom rather than noisy similarity scores.
+- `search_v3` — adds synonym expansion (e.g. "SPF" → "sunscreen", "omega 3" → "fish oil"), price-intent parsing ("cheap", "affordable", "budget" → price bucket filter), dosage normalization, and **adaptive beta**: when the mean similarity across the 80 retrieved candidates is below 0.65 (query is generic or ambiguous), the quality weight increases from 0.12 to 0.20, falling back on crowd wisdom rather than noisy similarity scores.
 - `search_v4` (production) — hybrid BM25 + semantic retrieval with Reciprocal Rank Fusion, achieving the highest NDCG@5 across all systems on the 37-query benchmark.
 
 **Recommendation.** A separate function retrieves the five most similar products to a given ASIN, operating on the combined embedding matrix directly without going through the query encoder.
@@ -94,7 +94,7 @@ Gradio web interface integrating the full pipeline. Three tabs:
 
 ### 07 · Embedding Visualization
 
-Interactive 2-D visualization of the product embedding space. UMAP reduces the combined embeddings (7,604 × 768) to 2-D; Plotly renders an interactive scatter plot where each point is a product, coloured by macro-category, price bucket, or average rating. A query-overlay mode projects any query into the same space and highlights the top-k nearest products with dotted lines.
+Interactive 2-D visualization of the product embedding space. UMAP reduces the combined embeddings (7,593 × 768) to 2-D; Plotly renders an interactive scatter plot where each point is a product, coloured by macro-category, price bucket, or average rating. A query-overlay mode projects any query into the same space and highlights the top-k nearest products with dotted lines.
 
 ---
 
