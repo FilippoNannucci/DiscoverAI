@@ -51,7 +51,7 @@ Alpha is not fixed: it scales with the product's review signal strength. Product
 
 Implements and evaluates the retrieval and re-ranking pipeline.
 
-**Base search.** A query is encoded with the same MPNet model, and FAISS retrieves the top-50 candidates by cosine similarity. Candidates are then re-ranked with:
+**Base search.** A query is encoded with the same MPNet model, and FAISS retrieves the top-80 candidates by cosine similarity. Candidates are then re-ranked with:
 
 ```
 score = similarity + β_quality · quality_score

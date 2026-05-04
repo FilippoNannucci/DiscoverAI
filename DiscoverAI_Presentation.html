@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DiscoverAI · Deloitte × LUISS 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="deck-stage.js"></script>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f8f7f5;
+    --green: #86BC25;
+    --green-dark: #5a8c00;
+    --green-dim: rgba(134,188,37,0.12);
+    --green-mid: rgba(134,188,37,0.25);
+    --slate: #1a2332;
+    --slate-mid: #2c3e52;
+    --slate-light: #4a5e74;
+    --mist: #eef0ec;
+    --text: #1a2332;
+    --text-muted: #6b7a8d;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  deck-stage { background: #111; }
+
+  /* ─── SHARED SLIDE BASE ─── */
+  section {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--white);
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Footer */
+  .foot {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: var(--slate);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 64px;
+    color: rgba(255,255,255,0.5);
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+  .foot span { font-size: 24px; }
+  .foot .brand { color: var(--green); font-weight: 600; font-size: 24px; }
+  .foot .num { font-family: var(--mono); font-size: 24px; color: rgba(255,255,255,0.35); }
+
+  /* Green accent bar top-left */
+  .accent-bar {
+    position: absolute;
+    top: 0; left: 0;
+    width: 8px;
+    height: 100%;
+    background: var(--green);
+  }
+
+  /* Tag / eyebrow */
+  .eyebrow {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 18px;
+  }
+
+  /* Section title */
+  .stitle {
+    font-size: 54px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--slate);
+    letter-spacing: -0.02em;
+  }
+  .stitle span { color: var(--green); }
+
+  /* Subtitle */
+  .subtitle {
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 16px;
+    line-height: 1.4;
+  }
+
+  /* Body text */
+  .body { font-size: 28px; line-height: 1.6; color: var(--text); }
+  .body-sm { font-size: 24px; line-height: 1.6; color: var(--text); }
+
+  /* Mono text */
+  .mono { font-family: var(--mono); }
+
+  /* Cards */
+  .card {
+    background: #fff;
+    border: 1.5px solid #e5e8e2;
+    border-radius: 12px;
+    padding: 36px 40px;
+  }
+  .card-green {
+    background: var(--green-dim);
+    border: 1.5px solid rgba(134,188,37,0.3);
+    border-radius: 12px;
+    padding: 36px 40px;
+  }
+  .card-dark {
+    background: var(--slate);
+    border-radius: 12px;
+    padding: 36px 40px;
+    color: #fff;
+  }
+
+  /* Pill / badge */
+  .pill {
+    display: inline-block;
+    background: var(--green-dim);
+    border: 1px solid rgba(134,188,37,0.4);
+    color: var(--green-dark);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 100px;
+  }
+
+  /* Number big */
+  .num-big {
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--green);
+    letter-spacing: -0.03em;
+  }
+  .num-label {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ─── SLIDE 1: COVER ─── */
+  #s1 { background: var(--slate); }
+  #s1 .bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(134,188,37,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(134,188,37,0.06) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  #s1 .bg-glow {
+    position: absolute;
+    width: 900px; height: 900px;
+    background: radial-gradient(circle, rgba(134,188,37,0.18) 0%, transparent 70%);
+    right: -100px; top: -200px;
+    pointer-events: none;
+  }
+  #s1 .content {
+    position: absolute;
+    left: 120px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 1100px;
+  }
+  #s1 .kicker {
+    font-size: 24px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 600;
+    margin-bottom: 40px;
+  }
+  #s1 .main-title {
+    font-size: 160px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 32px;
+  }
+  #s1 .main-title span { color: var(--green); }
+  #s1 .tagline {
+    font-size: 36px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.4;
+    max-width: 820px;
+    margin-bottom: 28px;
+  }
+  #s1 .desc {
+    font-size: 24px;
+    color: rgba(255,255,255,0.4);
+    max-width: 820px;
+    line-height: 1.6;
+  }
+  #s1 .team-bar {
+    position: absolute;
+    bottom: 80px; left: 120px;
+    display: flex; align-items: center; gap: 40px;
+  }
+  #s1 .team-name {
+    font-size: 26px; font-weight: 600;
+    color: rgba(255,255,255,0.85);
+  }
+  #s1 .team-date {
+    font-size: 24px;
+    color: rgba(255,255,255,0.4);
+    font-family: var(--mono);
+  }
+  #s1 .divider { width: 2px; height: 32px; background: rgba(255,255,255,0.2); }
+  #s1 .right-accent {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: var(--green);
+  }
+
+  /* ─── SLIDE 2: THE CHALLENGE ─── */
+  #s2 { background: var(--white); }
+  #s2 .layout {
+    position: absolute;
+    inset: 0 0 52px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  #s2 .left-col {
+    padding: 60px 80px 60px 120px;
+    display: flex; flex-direction: column; gap: 28px;
+    border-right: 1.5px solid #e5e8e2;
+  }
+  #s2 .right-col {
+    padding: 60px 80px 60px 80px;
+    display: flex; flex-direction: column; gap: 28px;
+    background: #f5f6f2;
+  }
+  #s2 .col-label {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  #s2 .query-chip {
+    background: #fff;
+    border: 1.5px solid #e0e3db;
+    border-radius: 10px;
+    padding: 22px 28px;
+    font-size: 26px;
+    color: var(--text);
+    line-height: 1.4;
+    border-left: 4px solid var(--green);
+  }
+  #s2 .query-chip span { font-size: 24px !important; }
+  #s2 .fail-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    font-size: 26px; color: var(--text); line-height: 1.4;
+  }
+  #s2 .fail-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #c0392b;
+    flex-shrink: 0;
+    margin-top: 10px;
+  }
+
+  /* ─── SLIDE 3: APPROACH ─── */
+  #s3 .layout {
+    position: absolute;
+    inset: 0 0 52px 8px;
+    padding: 60px 100px 50px 120px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  #s3 .header { flex-shrink: 0; }
+  #s3 .desc-text {
+    font-size: 28px; color: var(--text-muted); line-height: 1.5;
+    max-width: 1400px;
+  }
+  #s3 .steps {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    flex: 1;
+    align-items: stretch;
+  }
+  #s3 .step {
+    background: #fff;
+    border: 1.5px solid #e5e8e2;
+    border-radius: 16px;
+    padding: 36px 28px;
+    display: flex; flex-direction: column; gap: 16px;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+  #s3 .step::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--green);
+  }
+  #s3 .step-num {
+    font-family: var(--mono);
+    font-size: 24px;
+    color: var(--green);
+    font-weight: 500;
+  }
+  #s3 .step-name {
+    font-size: 30px; font-weight: 700;
+    color: var(--slate);
+    line-height: 1.1;
+  }
+  #s3 .step-desc {
+    font-size: 24px; color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ─── SLIDE 4: DATASET ─── */
+  #s4 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    padding: 70px 100px 60px 120px;
+    display: flex; flex-direction: column; gap: 40px;
+  }
+  #s4 .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  #s4 .stat-card {
+    background: #fff;
+    border: 1.5px solid #e5e8e2;
+    border-radius: 16px;
+    padding: 40px 36px;
+    display: flex; flex-direction: column; gap: 8px;
+    position: relative; overflow: hidden;
+  }
+  #s4 .stat-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px; background: var(--green);
+  }
+  #s4 .stat-card.highlight { background: var(--slate); }
+  #s4 .stat-card.highlight .num-big { color: var(--green); }
+  #s4 .stat-card.highlight .num-label { color: rgba(255,255,255,0.6); }
+  #s4 .lower { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  #s4 .cleaning-card {
+    background: #fff;
+    border: 1.5px solid #e5e8e2;
+    border-radius: 16px;
+    padding: 40px 44px;
+  }
+  #s4 .cleaning-title {
+    font-size: 24px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 24px;
+  }
+  #s4 .cleaning-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    font-size: 24px; color: var(--text); line-height: 1.4;
+    margin-bottom: 18px;
+  }
+  #s4 .cleaning-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0; margin-top: 9px;
+  }
+  #s4 .cleaning-sub {
+    font-size: 24px; color: var(--text-muted);
+    margin-top: 4px; line-height: 1.4;
+  }
+
+  /* ─── SLIDE 5: BIAS ─── */
+  #s5 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  #s5 .left-col {
+    padding: 80px 60px 60px 120px;
+    display: flex; flex-direction: column; gap: 36px;
+  }
+  #s5 .right-col {
+    padding: 80px 80px 60px 60px;
+    display: flex; flex-direction: column; gap: 28px;
+    background: #f5f6f2;
+  }
+  #s5 .why-box {
+    background: #fff; border: 1.5px solid #e5e8e2;
+    border-radius: 16px; padding: 36px 40px;
+    border-top: 4px solid var(--green);
+  }
+  #s5 .why-label {
+    font-size: 24px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 16px;
+  }
+  #s5 .cap-box {
+    background: var(--slate); border-radius: 16px;
+    padding: 36px 40px; color: #fff;
+  }
+  #s5 .cap-formula {
+    font-family: var(--mono); font-size: 28px;
+    color: var(--green); margin: 16px 0;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── SLIDE 6: ARCH 1 ─── */
+  #s6 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  #s6 .left-col {
+    padding: 80px 60px 60px 120px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  #s6 .right-col {
+    padding: 80px 80px 60px 60px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: var(--slate);
+    gap: 20px;
+  }
+  #s6 .reason-item {
+    background: #fff; border: 1.5px solid #e5e8e2;
+    border-radius: 12px; padding: 28px 32px;
+    border-left: 4px solid var(--green);
+  }
+  #s6 .reason-title { font-size: 24px; font-weight: 700; color: var(--slate); margin-bottom: 8px; }
+  #s6 .reason-body { font-size: 24px; color: var(--text-muted); line-height: 1.4; }
+  /* Tower diagram */
+  #s6 .tower-diagram {
+    width: 100%; display: flex; flex-direction: column;
+    align-items: center; gap: 16px; padding: 20px;
+  }
+  #s6 .tower-row {
+    display: flex; gap: 24px; align-items: center;
+  }
+  #s6 .tower-box {
+    border-radius: 12px; padding: 22px 28px; text-align: center;
+    min-width: 200px;
+  }
+  #s6 .tower-box.product {
+    background: rgba(134,188,37,0.15);
+    border: 2px solid rgba(134,188,37,0.5);
+  }
+  #s6 .tower-box.reviews {
+    background: rgba(74,94,116,0.25);
+    border: 2px solid rgba(74,94,116,0.5);
+  }
+  #s6 .tower-box.combined {
+    background: var(--green);
+    border: 2px solid var(--green);
+  }
+  #s6 .tower-label { font-size: 24px; font-weight: 700; color: #fff; }
+  #s6 .tower-sub { font-size: 24px; color: rgba(255,255,255,0.65); margin-top: 4px; }
+  #s6 .tower-box.combined .tower-label { color: var(--slate); }
+  #s6 .tower-box.combined .tower-sub { color: rgba(26,35,50,0.7); }
+  #s6 .arrow-down { font-size: 30px; color: rgba(255,255,255,0.4); }
+  #s6 .formula-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 18px 32px;
+    font-family: var(--mono);
+    font-size: 24px; color: var(--green);
+    text-align: center;
+  }
+  #s6 .formula-sub { font-size: 24px; color: rgba(255,255,255,0.4); margin-top: 6px; text-align: center; font-family: var(--sans); }
+
+  /* ─── SLIDE 7: DYNAMIC ALPHA ─── */
+  #s7 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  #s7 .left-col {
+    padding: 60px 60px 50px 120px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  #s7 .right-col {
+    padding: 80px 80px 60px 60px;
+    display: flex; flex-direction: column; gap: 28px;
+    background: #f5f6f2;
+  }
+  #s7 .alpha-card {
+    border-radius: 16px; padding: 36px 40px;
+    border: 1.5px solid #e5e8e2;
+    background: #fff;
+    border-top: 4px solid;
+    flex: 1;
+  }
+  #s7 .alpha-card.weak { border-top-color: var(--slate-light); }
+  #s7 .alpha-card.strong { border-top-color: var(--green); }
+  #s7 .alpha-tag {
+    font-size: 24px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  #s7 .alpha-card.weak .alpha-tag { color: var(--slate-light); }
+  #s7 .alpha-card.strong .alpha-tag { color: var(--green-dark); }
+  #s7 .alpha-title { font-size: 26px; font-weight: 700; color: var(--slate); margin-bottom: 12px; }
+  #s7 .alpha-body { font-size: 24px; color: var(--text-muted); line-height: 1.5; }
+  #s7 .alpha-value {
+    font-family: var(--mono); font-size: 36px; font-weight: 500;
+    margin-top: 16px;
+  }
+  #s7 .alpha-card.weak .alpha-value { color: var(--slate-light); }
+  #s7 .alpha-card.strong .alpha-value { color: var(--green-dark); }
+
+  /* ─── SLIDE 8 & 9: UMAP ─── */
+  #s8 .layout, #s9 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    display: grid; grid-template-columns: 3fr 2fr;
+  }
+  #s8 .left-col, #s9 .left-col {
+    padding: 60px 40px 40px 120px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  #s8 .right-col, #s9 .right-col {
+    padding: 80px 80px 60px 40px;
+    display: flex; flex-direction: column; gap: 28px;
+    background: #f5f6f2;
+    justify-content: center;
+  }
+  #s8 .img-frame, #s9 .img-frame {
+    flex: 1;
+    background: #fff;
+    border: 1.5px solid #e5e8e2;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #s8 .img-frame img, #s9 .img-frame img {
+    width: 100%; height: 100%; object-fit: contain;
+    padding: 8px;
+  }
+  #s8 .insight-item, #s9 .insight-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    font-size: 24px; color: var(--text); line-height: 1.4;
+  }
+  #s8 .insight-dot, #s9 .insight-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0; margin-top: 10px;
+  }
+
+  /* ─── SLIDE 10: FAISS ─── */
+  #s10 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    padding: 70px 100px 60px 120px;
+    display: flex; flex-direction: column; gap: 36px;
+  }
+  #s10 .table-wrap {
+    background: #fff;
+    border: 1.5px solid #e5e8e2;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  #s10 table {
+    width: 100%; border-collapse: collapse;
+    font-size: 28px;
+  }
+  #s10 thead { background: var(--slate); color: #fff; }
+  #s10 thead th {
+    padding: 28px 36px; text-align: left;
+    font-weight: 600; font-size: 24px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  #s10 tbody tr { border-bottom: 1px solid #e5e8e2; }
+  #s10 tbody tr:last-child { border-bottom: none; }
+  #s10 tbody tr.highlight { background: var(--green-dim); }
+  #s10 tbody td { padding: 28px 36px; }
+  #s10 tbody td:first-child { font-weight: 700; color: var(--slate); font-family: var(--mono); font-size: 26px; }
+  #s10 .perfect { color: var(--green-dark); font-weight: 700; font-family: var(--mono); }
+  #s10 .approx { color: var(--text-muted); font-family: var(--mono); }
+  #s10 .none { color: var(--green-dark); font-weight: 700; }
+  #s10 .defense-box {
+    background: var(--slate);
+    border-radius: 16px; padding: 36px 44px;
+    color: #fff; font-size: 26px; line-height: 1.5;
+  }
+  #s10 .defense-box strong { color: var(--green); }
+
+  /* ─── SLIDE 11: SEARCH ─── */
+  #s11 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    padding: 60px 100px 50px 120px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  #s11 .pipeline {
+    display: flex; align-items: stretch; gap: 0;
+    flex: 0 0 auto;
+    height: 210px;
+    min-height: 0;
+  }
+  #s11 .pipe-step {
+    flex: 1;
+    background: #fff;
+    border: 1.5px solid #e5e8e2;
+    border-radius: 16px;
+    padding: 24px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+    position: relative;
+    justify-content: center;
+  }
+  #s11 .pipe-step::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; background: var(--green);
+    border-radius: 14px 14px 0 0;
+  }
+  #s11 .pipe-arrow {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; flex-shrink: 0; color: var(--text-muted);
+    font-size: 28px;
+    align-self: center;
+  }
+  #s11 .pipe-num {
+    font-family: var(--mono); font-size: 24px;
+    color: var(--green); font-weight: 500;
+  }
+  #s11 .pipe-name { font-size: 28px; font-weight: 700; color: var(--slate); }
+  #s11 .pipe-desc { font-size: 24px; color: var(--text-muted); line-height: 1.4; }
+  #s11 .formula-section {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    flex: 1;
+  }
+  #s11 .formula-box {
+    background: var(--slate); border-radius: 14px;
+    padding: 28px 36px; color: #fff;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  #s11 .formula-label {
+    font-size: 24px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--green); margin-bottom: 10px;
+  }
+  #s11 .formula-eq {
+    font-family: var(--mono); font-size: 24px;
+    color: rgba(255,255,255,0.9); line-height: 1.5;
+  }
+  #s11 .formula-note {
+    font-size: 24px; color: rgba(255,255,255,0.45);
+    margin-top: 8px; line-height: 1.4;
+  }
+
+  /* ─── SLIDE 12: RE-RANKING ─── */
+  #s12 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    display: grid; grid-template-columns: 3fr 2fr;
+  }
+  #s12 .left-col {
+    padding: 70px 40px 40px 120px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  #s12 .right-col {
+    padding: 80px 80px 60px 40px;
+    display: flex; flex-direction: column; gap: 32px;
+    background: #f5f6f2;
+    justify-content: center;
+  }
+  #s12 .img-frame {
+    flex: 1;
+    background: #fff; border: 1.5px solid #e5e8e2;
+    border-radius: 16px; overflow: hidden;
+    display: flex; align-items: center;
+  }
+  #s12 .img-frame img { width: 100%; object-fit: contain; padding: 12px; }
+  #s12 .lift-box {
+    background: var(--green); border-radius: 16px;
+    padding: 36px 40px; text-align: center;
+  }
+  #s12 .lift-num { font-size: 80px; font-weight: 700; color: var(--slate); line-height: 1; }
+  #s12 .lift-label { font-size: 24px; color: rgba(26,35,50,0.7); margin-top: 8px; }
+
+  /* ─── SLIDE 13: ITERATIONS ─── */
+  #s13 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    padding: 56px 80px 44px 120px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  #s13 .versions {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px; flex: 1;
+    align-items: stretch;
+  }
+  #s13 .versions > * {
+    height: 100%;
+  }
+  #s13 .ver-card {
+    background: #fff; border: 1.5px solid #e5e8e2;
+    border-radius: 16px; padding: 24px 22px;
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative; overflow: hidden;
+    height: 100%;
+  }
+  #s13 .ver-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 5px;
+  }
+  #s13 .ver-card.v1::before { background: var(--slate-light); }
+  #s13 .ver-card.v2::before { background: #e8a020; }
+  #s13 .ver-card.v3::before { background: var(--green); }
+  #s13 .ver-tag {
+    font-family: var(--mono); font-size: 24px; font-weight: 500;
+  }
+  #s13 .ver-card.v1 .ver-tag { color: var(--slate-light); }
+  #s13 .ver-card.v2 .ver-tag { color: #e8a020; }
+  #s13 .ver-card.v3 .ver-tag { color: var(--green-dark); }
+  #s13 .ver-name { font-size: 24px; font-weight: 700; color: var(--slate); }
+  #s13 .ver-sub { font-size: 24px; color: var(--text-muted); font-style: italic; margin-top: -8px; }
+  #s13 .ver-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 24px; color: var(--text); line-height: 1.3;
+  }
+  #s13 .ver-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    flex-shrink: 0; margin-top: 9px;
+  }
+  #s13 .ver-card.v1 .ver-dot { background: var(--slate-light); }
+  #s13 .ver-card.v2 .ver-dot { background: #e8a020; }
+  #s13 .ver-card.v3 .ver-dot { background: var(--green); }
+
+  /* ─── SLIDE 14: NLP ─── */
+  #s14 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  #s14 .col {
+    padding: 80px 70px 60px 80px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  #s14 .col:first-child {
+    padding-left: 120px;
+    border-right: 1.5px solid #e5e8e2;
+  }
+  #s14 .col:last-child { background: #f5f6f2; }
+  #s14 .nlp-head {
+    font-size: 24px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  #s14 .nlp-model {
+    font-size: 36px; font-weight: 700; color: var(--slate);
+    font-family: var(--mono);
+  }
+  #s14 .nlp-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    font-size: 24px; color: var(--text); line-height: 1.4;
+  }
+  #s14 .nlp-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0; margin-top: 9px;
+  }
+  #s14 .entity-group { margin-bottom: 16px; }
+  #s14 .entity-type {
+    font-size: 24px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--green-dark); margin-bottom: 8px;
+  }
+  #s14 .entity-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  #s14 .entity-tag {
+    background: var(--green-dim);
+    border: 1px solid rgba(134,188,37,0.3);
+    color: var(--green-dark);
+    font-size: 24px; font-weight: 500;
+    padding: 6px 16px; border-radius: 100px;
+  }
+
+  /* ─── SLIDE 15: DEMO ─── */
+  #s15 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    padding: 60px 100px 50px 120px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  #s15 .tabs {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px; flex: 1;
+  }
+  #s15 .tab-card {
+    background: #fff; border: 1.5px solid #e5e8e2;
+    border-radius: 16px; padding: 44px 40px;
+    display: flex; flex-direction: column; gap: 20px;
+    position: relative; overflow: hidden;
+  }
+  #s15 .tab-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 5px; background: var(--green);
+  }
+  #s15 .tab-num {
+    font-family: var(--mono); font-size: 24px;
+    color: var(--green); font-weight: 500;
+  }
+  #s15 .tab-name { font-size: 32px; font-weight: 700; color: var(--slate); }
+  #s15 .tab-desc { font-size: 24px; color: var(--text-muted); line-height: 1.5; }
+  #s15 .tab-features {
+    margin-top: auto;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  #s15 .tab-feature {
+    display: flex; gap: 12px; align-items: center;
+    font-size: 24px; color: var(--text);
+  }
+  #s15 .tab-bullet {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0;
+  }
+
+  /* ─── SLIDE 16: CHOICES ─── */
+  #s16 .layout {
+    position: absolute; inset: 0 0 52px 8px;
+    padding: 60px 100px 40px 120px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  #s16 .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px; flex: 1;
+  }
+  #s16 .choice-card {
+    background: #fff; border: 1.5px solid #e5e8e2;
+    border-radius: 14px; padding: 32px 32px;
+    display: flex; flex-direction: column; gap: 12px;
+    border-left: 4px solid var(--green);
+  }
+  #s16 .choice-title {
+    font-size: 24px; font-weight: 700; color: var(--slate);
+    line-height: 1.2;
+  }
+  #s16 .choice-body {
+    font-size: 24px; color: var(--text-muted); line-height: 1.5;
+  }
+
+  /* ─── SLIDE 17: THANK YOU ─── */
+  #s17 { background: var(--slate); }
+  #s17 .bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(134,188,37,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(134,188,37,0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  #s17 .bg-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(134,188,37,0.15) 0%, transparent 70%);
+    left: -100px; bottom: -100px;
+  }
+  #s17 .content {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 24px; text-align: center;
+  }
+  #s17 .ty-label {
+    font-size: 24px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--green);
+    white-space: nowrap;
+  }
+  #s17 .ty-title {
+    font-size: 160px; font-weight: 700;
+    color: #fff; line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+  #s17 .ty-sub {
+    font-size: 44px; font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    margin-top: 8px;
+  }
+  #s17 .ty-team {
+    margin-top: 40px;
+    font-size: 24px; color: rgba(255,255,255,0.4);
+    font-family: var(--mono);
+    letter-spacing: 0.02em;
+  }
+  #s17 .right-accent {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 6px; background: var(--green);
+  }
+</style>
+</head>
+<body>
+<deck-stage>
+
+  <!-- ══ SLIDE 1: COVER ══ -->
+  <section id="s1" data-screen-label="01 Cover">
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    <div class="content">
+      <div class="kicker">FINAL PROJECT · DELOITTE × LUISS 2026</div>
+      <div class="main-title">Discover<span>AI</span></div>
+      <div class="tagline">Semantic Product Search for Health &amp; Personal Care</div>
+      <div class="desc">A review-aware search system on Amazon Reviews 2023, with quality-driven re-ranking, BART summarization, and domain entity extraction.</div>
+    </div>
+    <div class="team-bar">
+      <div class="team-name">Team Mean-Squared-Terrors</div>
+      <div class="divider"></div>
+      <div class="team-date">May 3, 2026</div>
+    </div>
+    <div class="right-accent"></div>
+  </section>
+
+  <!-- ══ SLIDE 2: THE CHALLENGE ══ -->
+  <section id="s2" data-screen-label="02 The Challenge">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div class="left-col">
+        <div>
+          <div class="eyebrow">The Challenge</div>
+          <div class="stitle">Keyword search doesn't understand what shoppers actually mean</div>
+        </div>
+        <div class="col-label">What the user types</div>
+        <div class="query-chip">Natural-language intent<br/><span style="color:var(--text-muted);font-size:22px">"something to help me sleep at night"</span></div>
+        <div class="query-chip">Implicit exclusions<br/><span style="color:var(--text-muted);font-size:22px">"face cream without parabens"</span></div>
+        <div class="query-chip">Price intent &amp; trust signals<br/><span style="color:var(--text-muted);font-size:22px">"professional but affordable shampoo"</span></div>
+      </div>
+      <div class="right-col">
+        <div class="col-label" style="margin-top:148px">What traditional search does</div>
+        <div class="fail-item"><div class="fail-dot"></div><div>Lexical match: looks for exact words only</div></div>
+        <div class="fail-item"><div class="fail-dot"></div><div>Doesn't understand synonyms or intent</div></div>
+        <div class="fail-item"><div class="fail-dot"></div><div>Cannot tell "with" from "without"</div></div>
+        <div class="fail-item"><div class="fail-dot"></div><div>Ranks by text relevance or raw popularity</div></div>
+        <div class="fail-item"><div class="fail-dot"></div><div>Ignores the customer voice inside reviews</div></div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">2 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 3: OUR APPROACH ══ -->
+  <section id="s3" data-screen-label="03 Our Approach">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div class="header">
+        <div class="eyebrow">Our Approach</div>
+        <div class="stitle">A review-aware system that understands intent and trust</div>
+        <div class="desc-text" style="margin-top:16px">One embedding model, two sources of truth: the product text for what it claims to be, the reviews for how it actually performs, fused into a semantic index with quality-driven re-ranking.</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-name">Cleaning</div>
+          <div class="step-desc">Balanced sampling, minimum thresholds</div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-name">Embedding</div>
+          <div class="step-desc">Two-tower MPNet, dynamic alpha</div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-name">Index</div>
+          <div class="step-desc">FAISS IndexFlatIP, exact search</div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-name">Search</div>
+          <div class="step-desc">Parsing, synonyms, re-ranking</div>
+        </div>
+        <div class="step">
+          <div class="step-num">05</div>
+          <div class="step-name">NLP</div>
+          <div class="step-desc">BART summary + domain entities</div>
+        </div>
+        <div class="step">
+          <div class="step-num">06</div>
+          <div class="step-name">Demo</div>
+          <div class="step-desc">Gradio UI, 3 tabs</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">3 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 4: DATASET ══ -->
+  <section id="s4" data-screen-label="04 Dataset">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div>
+        <div class="eyebrow">Dataset at a Glance</div>
+        <div class="stitle">Amazon Reviews 2023: Health &amp; Personal Care</div>
+        <div class="subtitle">Field coverage, token distribution and reviews per product (balanced set)</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card highlight">
+          <div class="num-big">7,647</div>
+          <div class="num-label" style="color:rgba(255,255,255,0.6)">products</div>
+        </div>
+        <div class="stat-card">
+          <div class="num-big">318k</div>
+          <div class="num-label">cleaned reviews</div>
+        </div>
+        <div class="stat-card">
+          <div class="num-big">57k</div>
+          <div class="num-label">balanced reviews</div>
+        </div>
+        <div class="stat-card">
+          <div class="num-big">96%</div>
+          <div class="num-label">brand coverage</div>
+        </div>
+      </div>
+      <div class="lower">
+        <div class="cleaning-card">
+          <div class="cleaning-title">Cleaning Decisions</div>
+          <div class="cleaning-item">
+            <div class="cleaning-dot"></div>
+            <div>
+              Min 10 reviews per product
+              <div class="cleaning-sub">Below this threshold the review signal is too weak for a meaningful embedding</div>
+            </div>
+          </div>
+          <div class="cleaning-item">
+            <div class="cleaning-dot"></div>
+            <div>
+              Drop reviews shorter than 25 tokens
+              <div class="cleaning-sub">"Love it!!", "Fast shipping" carry no semantic content</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e5e8e2;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+          <img src="extracted/image1.png" style="width:100%;height:100%;object-fit:contain;padding:16px" />
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">4 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 5: 5-STAR BIAS ══ -->
+  <section id="s5" data-screen-label="05 5-Star Bias">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div class="left-col">
+        <div>
+          <div class="eyebrow">Reducing the 5-Star Bias</div>
+          <div class="stitle">Balanced sampling: from 61.7% to 46.2% five-star reviews</div>
+        </div>
+        <div style="flex:1;background:#fff;border:1.5px solid #e5e8e2;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+          <img src="extracted/image2.png" style="width:100%;object-fit:contain;padding:16px" />
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="why-box">
+          <div class="why-label">Why this matters</div>
+          <div class="body">Without balancing, the model sees a corpus where 6 out of 10 reviews say "5 stars, love it" — useful signal drowns in praise. The bias correction is per-product, so even niche items keep a critical voice.</div>
+        </div>
+        <div class="cap-box">
+          <div class="why-label" style="color:var(--green);font-size:24px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px">How the cap works</div>
+          <div class="cap-formula">{5:5, 4:3, 3:2, 2:3, 1:3}</div>
+          <div class="body-sm" style="color:rgba(255,255,255,0.65)">Per product, take at most this many reviews per rating, prioritising the most helpful within each band.</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">5 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 6: TWO-TOWER ══ -->
+  <section id="s6" data-screen-label="06 Architecture Choice 1">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div class="left-col">
+        <div>
+          <div class="eyebrow">Architecture · Choice #1</div>
+          <div class="stitle">Two-tower embedding: product and reviews kept separate</div>
+        </div>
+        <div class="reason-item">
+          <div class="reason-title">Two sources, two voices</div>
+          <div class="reason-body">Product text says what the brand sells; reviews say how it actually works. Concatenating lets the noisier source dominate.</div>
+        </div>
+        <div class="reason-item">
+          <div class="reason-title">Same encoder, two embeddings</div>
+          <div class="reason-body">all-mpnet-base-v2 (768 dim, trained on 1B+ pairs): shared semantics, vectors we can weight separately.</div>
+        </div>
+        <div class="reason-item">
+          <div class="reason-title">Weighted review aggregation</div>
+          <div class="reason-body">70% helpful_vote score + 30% deviation from neutral rating: most useful reviews surface first.</div>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="tower-diagram">
+          <div class="tower-row">
+            <div class="tower-box product">
+              <div class="tower-label">PRODUCT</div>
+              <div class="tower-sub">Title + Brand · Features + Specs</div>
+            </div>
+            <div class="tower-box reviews">
+              <div class="tower-label">REVIEWS</div>
+              <div class="tower-sub">weighted avg (helpful + rating dist.)</div>
+            </div>
+          </div>
+          <div class="arrow-down">↓ &nbsp;&nbsp;&nbsp; ↓</div>
+          <div class="tower-row">
+            <div class="tower-box combined">
+              <div class="tower-label">COMBINED</div>
+              <div class="tower-sub">768-dim, normalised</div>
+            </div>
+          </div>
+          <div class="formula-box">
+            combined = α · product_emb + (1 − α) · review_emb
+          </div>
+          <div class="formula-sub">α is per-product and dynamic (see next slide)</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">6 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 7: DYNAMIC ALPHA ══ -->
+  <section id="s7" data-screen-label="07 Architecture Choice 2">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div class="left-col">
+        <div>
+          <div class="eyebrow">Architecture · Choice #2</div>
+          <div class="stitle">Dynamic alpha: the product decides the weight, not the engineer</div>
+        </div>
+        <div style="flex:1;background:#fff;border:1.5px solid #e5e8e2;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+          <img src="extracted/image3.png" style="width:100%;object-fit:contain;padding:16px" />
+        </div>
+        <div class="body-sm" style="color:var(--text-muted)">Real distribution of α across the 7,593 products (mean 0.560)</div>
+      </div>
+      <div class="right-col">
+        <div style="flex:1;display:flex;flex-direction:column;gap:24px;justify-content:center;">
+          <div class="alpha-card weak">
+            <div class="alpha-tag">Weak Signal → High α</div>
+            <div class="alpha-title">Product text dominates</div>
+            <div class="alpha-body">Few reviews, low helpful_vote → product text carries the representation.</div>
+            <div class="alpha-value">α ≈ 0.70</div>
+          </div>
+          <div class="alpha-card strong">
+            <div class="alpha-tag">Strong Signal → Low α</div>
+            <div class="alpha-title">Customer voice carries weight</div>
+            <div class="alpha-body">Many helpful reviews, decisive rating → customer voice carries weight.</div>
+            <div class="alpha-value">α ≈ 0.35</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">7 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 8: UMAP ══ -->
+  <section id="s8" data-screen-label="08 Embedding Space">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div class="left-col">
+        <div>
+          <div class="eyebrow">Inside the Embedding Space</div>
+          <div class="stitle">UMAP projection: semantic clusters emerge by category</div>
+          <div class="subtitle">7,593 product embeddings · UMAP 2D · coloured by inferred category</div>
+        </div>
+        <div class="img-frame">
+          <img src="extracted/image4.png" />
+        </div>
+      </div>
+      <div class="right-col">
+        <div style="font-size:24px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)">What it tells us</div>
+        <div class="insight-item"><div class="insight-dot"></div><div>Supplements form a tight cluster top-left.</div></div>
+        <div class="insight-item"><div class="insight-dot"></div><div>Hair Care separates cleanly from Skin Care.</div></div>
+        <div class="insight-item"><div class="insight-dot"></div><div>Pain Relief sits between supplements and topical products — it bridges both.</div></div>
+        <div class="insight-item"><div class="insight-dot"></div><div>The model learned the catalogue's structure without ever being trained on it: proof of useful semantic geometry.</div></div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">8 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 9: UMAP QUERY ══ -->
+  <section id="s9" data-screen-label="09 Query in Space">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div class="left-col">
+        <div>
+          <div class="eyebrow">Inside the Embedding Space</div>
+          <div class="stitle">A query lands exactly where its products live</div>
+          <div class="subtitle">Query: "affordable vitamin C serum anti-aging" · encoded with same MPNet, projected into same UMAP</div>
+        </div>
+        <div class="img-frame">
+          <img src="extracted/image5.png" />
+        </div>
+      </div>
+      <div class="right-col">
+        <div style="font-size:24px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)">Why this works</div>
+        <div class="insight-item"><div class="insight-dot"></div><div>The query vector falls inside the supplement / skincare neighbourhood, not in a random spot.</div></div>
+        <div class="insight-item"><div class="insight-dot"></div><div>The top-5 results (red circles) are pulled from that same neighbourhood.</div></div>
+        <div class="insight-item"><div class="insight-dot"></div><div>We gain interpretability for free: "why this result?" → because it's spatially close to your intent.</div></div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">9 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 10: FAISS ══ -->
+  <section id="s10" data-screen-label="10 Architecture Choice 3">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div>
+        <div class="eyebrow">Architecture · Choice #3</div>
+        <div class="stitle">FAISS IndexFlatIP: exact search, no compromises</div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Latency @ 7.6k</th>
+              <th>Recall</th>
+              <th>Tuning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight">
+              <td>IndexFlatIP ✓</td>
+              <td class="perfect">negligible</td>
+              <td class="perfect">1.0</td>
+              <td class="none">none</td>
+            </tr>
+            <tr>
+              <td>IndexIVF</td>
+              <td class="approx">lower</td>
+              <td class="approx">≈ 0.95</td>
+              <td style="color:var(--text-muted)">nlist, nprobe to tune</td>
+            </tr>
+            <tr>
+              <td>IndexHNSW</td>
+              <td class="approx">lower</td>
+              <td class="approx">≈ 0.97</td>
+              <td style="color:var(--text-muted)">M, efSearch, slow build</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="defense-box">
+        <strong>Defense:</strong> at 7,593 products exact search is effectively instant. An approximate index trades recall for speed we wouldn't notice. Approximate becomes the right answer once the catalogue grows past <strong>tens of millions</strong>.
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">10 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 11: SEARCH & RE-RANK ══ -->
+  <section id="s11" data-screen-label="11 Search and Re-ranking">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div>
+        <div class="eyebrow">Search &amp; Re-Ranking</div>
+        <div class="stitle">From query to ranked results</div>
+      </div>
+      <div class="pipeline">
+        <div class="pipe-step">
+          <div class="pipe-num">01</div>
+          <div class="pipe-name">PARSE</div>
+          <div class="pipe-desc">price intent, exclusions</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step">
+          <div class="pipe-num">02</div>
+          <div class="pipe-name">ENCODE</div>
+          <div class="pipe-desc">MPNet on the cleaned query</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step">
+          <div class="pipe-num">03</div>
+          <div class="pipe-name">FAISS</div>
+          <div class="pipe-desc">top-80 candidates</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step">
+          <div class="pipe-num">04</div>
+          <div class="pipe-name">FILTER</div>
+          <div class="pipe-desc">price, rating, exclusions</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step">
+          <div class="pipe-num">05</div>
+          <div class="pipe-name">RE-RANK</div>
+          <div class="pipe-desc">final score + quality</div>
+        </div>
+      </div>
+      <div class="formula-section">
+        <div class="formula-box">
+          <div class="formula-label">Final Score</div>
+          <div class="formula-eq">score = similarity + β_quality · quality_score + β_pop · popularity_score</div>
+          <div class="formula-note">β_quality = 0.12 · β_pop = 0.05 → small enough that a popular but irrelevant product cannot leapfrog a better match</div>
+        </div>
+        <div class="formula-box">
+          <div class="formula-label">Quality Score</div>
+          <div class="formula-eq">0.40 · rating_norm + 0.35 · sentiment + 0.25 · helpful_credibility</div>
+          <div class="formula-note">popularity_score: log-normalised review_count, clipped at the 95th percentile to avoid outlier dominance</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">11 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 12: RE-RANKING PAYS OFF ══ -->
+  <section id="s12" data-screen-label="12 Re-ranking Results">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div class="left-col">
+        <div>
+          <div class="eyebrow">Re-ranking Pays Off</div>
+          <div class="stitle">Mean rating of top-5 results: similarity-only vs with re-ranking</div>
+          <div class="subtitle">10 representative natural-language queries · β_quality=0.12, β_pop=0.05</div>
+        </div>
+        <div class="img-frame">
+          <img src="extracted/image6.png" />
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="lift-box">
+          <div class="lift-num">+0.20</div>
+          <div class="lift-label">stars average lift in top-5</div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e5e8e2;border-radius:16px;padding:36px 40px;">
+          <div style="font-size:24px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Key finding</div>
+          <div class="body">Largest gain on noisy / generic queries such as <em>electric toothbrush</em> and <em>sleep aid</em>.</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">12 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 13: ITERATIONS ══ -->
+  <section id="s13" data-screen-label="13 Iterating the Search">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div>
+        <div class="eyebrow">Iterating the Search</div>
+        <div class="stitle">Iterating through versions: Demo now uses hybrid_v4</div>
+      </div>
+      <div class="versions" style="grid-template-columns: repeat(4, 1fr); gap: 16px;">
+        <div class="ver-card v1">
+          <div class="ver-tag">v1 · BASELINE</div>
+          <div class="ver-name">Similarity + fixed re-ranking</div>
+          <div class="ver-sub">The foundation</div>
+          <div class="ver-item"><div class="ver-dot"></div><div>FAISS top-50 + score with fixed β</div></div>
+          <div class="ver-item"><div class="ver-dot"></div><div>Works on "catalogue-style" queries</div></div>
+          <div class="ver-item"><div class="ver-dot"></div><div>Fails on negation and natural language</div></div>
+        </div>
+        <div class="ver-card v2">
+          <div class="ver-tag">v2 · NEGATION</div>
+          <div class="ver-name">Filter out what users exclude</div>
+          <div class="ver-sub">Answers observed failure</div>
+          <div class="ver-item"><div class="ver-dot"></div><div>Patterns: "without X", "no X", "X-free"</div></div>
+          <div class="ver-item"><div class="ver-dot"></div><div>Extracted terms post-filter the product text</div></div>
+          <div class="ver-item"><div class="ver-dot"></div><div>"cream without parabens" stops returning paraben creams</div></div>
+        </div>
+        <div class="ver-card v3">
+          <div class="ver-tag">v3 · PRODUCTION</div>
+          <div class="ver-name">Synonyms, price, dosages, adaptive β</div>
+          <div class="ver-sub">Full-featured</div>
+          <div class="ver-item"><div class="ver-dot"></div><div>Synonym expansion ("SPF" → sunscreen…)</div></div>
+          <div class="ver-item"><div class="ver-dot"></div><div>Price-intent parsing ("affordable" → budget)</div></div>
+          <div class="ver-item"><div class="ver-dot"></div><div>Dosage extraction (1000mg, SPF 50…)</div></div>
+          <div class="ver-item"><div class="ver-dot"></div><div>Adaptive β_quality: 0.20 when mean sim &lt; 0.65</div></div>
+        </div>
+        <div class="ver-card v3" style="border-top-color: #2196a0;">
+          <div class="ver-tag" style="color:#2196a0;">v4 · PRODUCTION (best version)</div>
+          <div class="ver-name">Hybrid v4: BM25 + Semantic + RRF</div>
+          <div class="ver-sub">Powers the demo</div>
+          <div class="ver-item"><div class="ver-dot" style="background:#2196a0;"></div><div>Demo powered by hybrid_v4</div></div>
+          <div class="ver-item"><div class="ver-dot" style="background:#2196a0;"></div><div>BM25 + Semantic + Reciprocal Rank Fusion</div></div>
+          <div class="ver-item"><div class="ver-dot" style="background:#2196a0;"></div><div>Evaluation — NDCG@5 = 0.526</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">13 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 14: SUMMARIZATION ══ -->
+  <section id="s14" data-screen-label="14 Summarization and Extraction">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div class="col">
+        <div>
+          <div class="eyebrow">Summarization &amp; Extraction</div>
+          <div class="stitle">From thousands of reviews to a readable card in seconds</div>
+        </div>
+        <div class="nlp-head">Summarization</div>
+        <div class="nlp-model">BART-Large-CNN</div>
+        <div class="nlp-item"><div class="nlp-dot"></div><div>Split into positive (≥4★) and negative (≤2★)</div></div>
+        <div class="nlp-item"><div class="nlp-dot"></div><div>Filters: ≥12 words, no "I…", &lt;300 chars, deduped</div></div>
+        <div class="nlp-item"><div class="nlp-dot"></div><div>BART produces summary + pros + cons</div></div>
+        <div class="nlp-item"><div class="nlp-dot"></div><div>Extractive fallback if &lt; 5 reviews — avoids hallucinations on thin evidence</div></div>
+      </div>
+      <div class="col">
+        <div style="margin-top:148px"></div>
+        <div class="nlp-head">Entity Recognition</div>
+        <div class="nlp-model" style="font-size:28px">Domain regex + spaCy NER</div>
+        <div class="entity-group">
+          <div class="entity-type">Active Ingredients</div>
+          <div class="entity-tags">
+            <span class="entity-tag">retinol</span>
+            <span class="entity-tag">niacinamide</span>
+            <span class="entity-tag">hyaluronic acid</span>
+            <span class="entity-tag">SPF</span>
+            <span class="entity-tag">omega-3</span>
+          </div>
+        </div>
+        <div class="entity-group">
+          <div class="entity-type">Certifications</div>
+          <div class="entity-tags">
+            <span class="entity-tag">organic</span>
+            <span class="entity-tag">vegan</span>
+            <span class="entity-tag">cruelty-free</span>
+            <span class="entity-tag">paraben-free</span>
+          </div>
+        </div>
+        <div class="entity-group">
+          <div class="entity-type">Use-case Targets</div>
+          <div class="entity-tags">
+            <span class="entity-tag">skin type</span>
+            <span class="entity-tag">hair type</span>
+            <span class="entity-tag">age group</span>
+            <span class="entity-tag">body area</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">14 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 15: DEMO ══ -->
+  <section id="s15" data-screen-label="15 Demo">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div>
+        <div class="eyebrow">Demo</div>
+        <div class="stitle">Gradio interface, 3 tabs, the entire pipeline integrated</div>
+      </div>
+      <div class="tabs">
+        <div class="tab-card">
+          <div class="tab-num">01</div>
+          <div class="tab-name">Search</div>
+          <div class="tab-desc">Free-text query with optional filters for price bucket and minimum rating.</div>
+          <div class="tab-features">
+            <div class="tab-feature"><div class="tab-bullet"></div><div>product image, rating, price</div></div>
+            <div class="tab-feature"><div class="tab-bullet"></div><div>BART summary</div></div>
+            <div class="tab-feature"><div class="tab-bullet"></div><div>extracted pros &amp; cons</div></div>
+          </div>
+        </div>
+        <div class="tab-card">
+          <div class="tab-num">02</div>
+          <div class="tab-name">Similar Products</div>
+          <div class="tab-desc">Content-based recommendation: from a product name, returns the 5 most similar on the combined embedding.</div>
+          <div class="tab-features">
+            <div class="tab-feature"><div class="tab-bullet"></div><div>no text encoding at runtime</div></div>
+            <div class="tab-feature"><div class="tab-bullet"></div><div>operates directly on combined_emb</div></div>
+          </div>
+        </div>
+        <div class="tab-card">
+          <div class="tab-num">03</div>
+          <div class="tab-name">System Info</div>
+          <div class="tab-desc">System transparency for evaluators: index size, model in use, feature coverage.</div>
+          <div class="tab-features">
+            <div class="tab-feature"><div class="tab-bullet"></div><div>index stats</div></div>
+            <div class="tab-feature"><div class="tab-bullet"></div><div>model details</div></div>
+            <div class="tab-feature"><div class="tab-bullet"></div><div>feature coverage</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">15 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 16: CHOICES WE DEFEND ══ -->
+  <section id="s16" data-screen-label="16 Choices We Defend">
+    <div class="accent-bar"></div>
+    <div class="layout">
+      <div>
+        <div class="eyebrow">Choices We Defend</div>
+        <div class="stitle">The architectural decisions we would make again</div>
+      </div>
+      <div class="grid">
+        <div class="choice-card">
+          <div class="choice-title">Two-tower over concatenation</div>
+          <div class="choice-body">Mixing product and review text in one 512-token sequence lets the noisier source dominate. Two towers let us weight contributions explicitly.</div>
+        </div>
+        <div class="choice-card">
+          <div class="choice-title">Dynamic α over fixed α</div>
+          <div class="choice-body">An average weight punishes products with credible review evidence and inflates those with thin reviews. Per-product α respects both ends.</div>
+        </div>
+        <div class="choice-card">
+          <div class="choice-title">Exact FAISS over approximate</div>
+          <div class="choice-body">At 7,593 products, exact is effectively instant and recall = 1. We adopt approximate when the catalogue forces it, not before.</div>
+        </div>
+        <div class="choice-card">
+          <div class="choice-title">Iteration v1→v2→v3→v4 over big bang</div>
+          <div class="choice-body">Each version answers an observed failure (negation, synonyms, hybrid fusion). Clear responsibilities and easy regression testing.</div>
+        </div>
+        <div class="choice-card">
+          <div class="choice-title">Balanced sampling + 10-review threshold</div>
+          <div class="choice-body">Cuts the 5-star bias from 62% to 46% and excludes products whose review signal is too thin to generate a reliable embedding.</div>
+        </div>
+        <div class="choice-card">
+          <div class="choice-title">Extractive fallback for BART</div>
+          <div class="choice-body">On few reviews, abstractive summarization hallucinates. Extractive is less elegant but honest about the evidence.</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <span><span class="brand">DiscoverAI</span> · Mean-Squared-Terrors · Deloitte × LUISS 2026</span>
+      <span class="num">16 / 17</span>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 17: THANK YOU ══ -->
+  <section id="s17" data-screen-label="17 Thank You">
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    <div class="content">
+      <div class="ty-label">Mean-Squared-Terrors · DiscoverAI · Deloitte × LUISS 2026</div>
+      <div class="ty-title">Thank<br/>You</div>
+      <div class="ty-sub">Questions</div>
+    </div>
+    <div class="right-accent"></div>
+  </section>
+
+</deck-stage>
+</body>
+</html>
