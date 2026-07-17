@@ -4,7 +4,7 @@
 
 Review-aware semantic search system built on the Amazon Reviews 2023 dataset (Health & Personal Care). Natural-language queries are matched to products via sentence embedding similarity, quality-weighted re-ranking, and structured review insights extracted through summarization and entity recognition.
 
-**Team:** Mean-Squared-Terrors · Deloitte × LUISS 2026
+**Team:** Filippo Nannucci, Gabriele Loreti, Daniele Giovanardi · Deloitte × LUISS 2026
 
 ---
 
@@ -145,7 +145,7 @@ Dependencies are listed in `requirements.txt`. All parameters are centralized in
 
 ## Team
 
-Group project by **Mean-Squared-Terrors** for the Deloitte x LUISS 2026 final project:
+Group project for the Deloitte x LUISS 2026 final project:
 
 | | |
 |---|---|
