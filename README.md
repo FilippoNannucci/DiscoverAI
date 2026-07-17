@@ -2,6 +2,10 @@
 
 **Semantic Product Search for Health & Personal Care**
 
+`NLP` · `sentence embeddings` · `semantic retrieval` · `abstractive summarization` · `named entity recognition`
+
+An applied **NLP** project: the whole system is language understanding end to end. It reads what shoppers wrote, works out what a shopper means, and answers in the shopper's own terms rather than matching keywords.
+
 Review-aware semantic search system built on the Amazon Reviews 2023 dataset (Health & Personal Care). Natural-language queries are matched to products via sentence embedding similarity, quality-weighted re-ranking, and structured review insights extracted through summarization and entity recognition.
 
 **Team:** Filippo Nannucci, Gabriele Loreti, Daniele Giovanardi · Deloitte × LUISS 2026
