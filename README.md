@@ -152,6 +152,5 @@ Group project by **Mean-Squared-Terrors** for the Deloitte x LUISS 2026 final pr
 | Filippo Nannucci | [@FilippoNannucci](https://github.com/FilippoNannucci) |
 | Gabriele Loreti | [@Gloreti03](https://github.com/Gloreti03) |
 | Daniele Giovanardi | [@DanieleGiovanardi2408](https://github.com/DanieleGiovanardi2408) |
-| Alessio | [@alessi0x](https://github.com/alessi0x) |
 
 The commit history in this repository is the original one and preserves each author's contributions.
