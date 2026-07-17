@@ -1,4 +1,6 @@
-# DiscoverAI — Semantic Product Search for Health & Personal Care
+# DiscoverAI
+
+**Semantic Product Search for Health & Personal Care**
 
 Review-aware semantic search system built on the Amazon Reviews 2023 dataset (Health & Personal Care). Natural-language queries are matched to products via sentence embedding similarity, quality-weighted re-ranking, and structured review insights extracted through summarization and entity recognition.
 
@@ -10,7 +12,7 @@ Review-aware semantic search system built on the Amazon Reviews 2023 dataset (He
 
 ### 01 · Data Ingestion & Cleaning
 
-Raw Amazon data is filtered down to a usable product catalogue. Products with fewer than 10 reviews are excluded — below this threshold the review signal is too weak to generate a meaningful embedding. Reviews below 25 tokens are also dropped (they carry no semantic content: "Love it!!", "Fast shipping").
+Raw Amazon data is filtered down to a usable product catalogue. Products with fewer than 10 reviews are excluded, below this threshold the review signal is too weak to generate a meaningful embedding. Reviews below 25 tokens are also dropped (they carry no semantic content: "Love it!!", "Fast shipping").
 
 The key design decision here is **balanced rating sampling**: instead of keeping all reviews, at most `{5:5, 4:3, 3:2, 2:3, 1:3}` reviews are selected per rating bucket, prioritizing the most helpful votes. Raw five-star reviews dominate (~62 % of the corpus); after balancing this drops to ~46 %, giving the embedding model a more honest picture of each product.
 
@@ -32,8 +34,8 @@ Builds the vector index that powers all downstream search.
 
 **Two-tower architecture.** Each product gets two embeddings computed independently with `all-mpnet-base-v2` (768 dimensions, trained on 1B+ sentence pairs):
 
-1. **Product embedding** — from the cleaned product text (title + features + metadata).
-2. **Review embedding** — a weighted average of the balanced reviews, where each review's weight combines its helpful-vote score (70 %) and how far its rating deviates from neutral (30 %). This surfaces the reviews that other customers found most useful.
+1. **Product embedding**, from the cleaned product text (title + features + metadata).
+2. **Review embedding**, a weighted average of the balanced reviews, where each review's weight combines its helpful-vote score (70 %) and how far its rating deviates from neutral (30 %). This surfaces the reviews that other customers found most useful.
 
 **Dynamic alpha blending.** The two embeddings are merged as:
 
@@ -57,14 +59,14 @@ Implements and evaluates the retrieval and re-ranking pipeline.
 score = similarity + β_quality · quality_score
 ```
 
-`quality_score` combines average rating, fraction of positive reviews, fraction of negative reviews, and log-helpful-votes, min-max normalized to `[0, 1]`. β_quality = 0.12 is small enough that a low-quality product cannot overtake a genuinely more relevant one purely on quality signal. A popularity term was evaluated but disabled after ablation — it degraded MRR by ~1.8 % (see `08_Evaluation.ipynb`).
+`quality_score` combines average rating, fraction of positive reviews, fraction of negative reviews, and log-helpful-votes, min-max normalized to `[0, 1]`. β_quality = 0.12 is small enough that a low-quality product cannot overtake a genuinely more relevant one purely on quality signal. A popularity term was evaluated but disabled after ablation, it degraded MRR by ~1.8 % (see `08_Evaluation.ipynb`).
 
 **Four search variants developed iteratively:**
 
-- `search` — baseline similarity + fixed re-ranking.
-- `search_v2` — adds negation filtering: terms after "without", "no", "free of" are detected and used to post-filter results that mention those terms in product text.
-- `search_v3` — adds synonym expansion (e.g. "SPF" → "sunscreen", "omega 3" → "fish oil"), price-intent parsing ("cheap", "affordable", "budget" → price bucket filter), dosage normalization, and **adaptive beta**: when the mean similarity across the 80 retrieved candidates is below 0.65 (query is generic or ambiguous), the quality weight increases from 0.12 to 0.20, falling back on crowd wisdom rather than noisy similarity scores.
-- `search_v4` (production) — hybrid BM25 + semantic retrieval with Reciprocal Rank Fusion, achieving the highest NDCG@5 across all systems on the 37-query benchmark.
+- `search`, baseline similarity + fixed re-ranking.
+- `search_v2`, adds negation filtering: terms after "without", "no", "free of" are detected and used to post-filter results that mention those terms in product text.
+- `search_v3`, adds synonym expansion (e.g. "SPF" → "sunscreen", "omega 3" → "fish oil"), price-intent parsing ("cheap", "affordable", "budget" → price bucket filter), dosage normalization, and **adaptive beta**: when the mean similarity across the 80 retrieved candidates is below 0.65 (query is generic or ambiguous), the quality weight increases from 0.12 to 0.20, falling back on crowd wisdom rather than noisy similarity scores.
+- `search_v4` (production), hybrid BM25 + semantic retrieval with Reciprocal Rank Fusion, achieving the highest NDCG@5 across all systems on the 37-query benchmark.
 
 **Recommendation.** A separate function retrieves the five most similar products to a given ASIN, operating on the combined embedding matrix directly without going through the query encoder.
 
@@ -86,9 +88,9 @@ The final `product_profiles.csv` merges the embedding index, summaries, and enti
 
 Gradio web interface integrating the full pipeline. Three tabs:
 
-- **Search** — free-text query with price bucket and minimum rating filters; results show product image, rating, price, BART summary, pros and cons (when NB05 has been run).
-- **Similar products** — content-based recommendation by product name.
-- **System info** — index statistics, model details, feature coverage.
+- **Search**, free-text query with price bucket and minimum rating filters; results show product image, rating, price, BART summary, pros and cons (when NB05 has been run).
+- **Similar products**, content-based recommendation by product name.
+- **System info**, index statistics, model details, feature coverage.
 
 ---
 
@@ -131,10 +133,25 @@ Also includes: ablation studies for β weights and search_v3 modules, per-intent
 | `vector_db.py` | ChromaDB integration for persistent vector storage |
 | `eval_set.py` | 38 hand-crafted evaluation queries with relevance specs |
 | `eval_metrics.py` | NDCG@K, MRR, Recall@K, Precision@K, MAP@K + relevance-judgment scorer |
-| `run_evaluation.py` | End-to-end evaluation runner — reproduces all tables in NB08 |
+| `run_evaluation.py` | End-to-end evaluation runner, reproduces all tables in NB08 |
 
 ---
 
 ## Requirements
 
-Dependencies are listed in `requirements.txt`. All parameters are centralized in `config.py` — no hardcoded values appear inside functions or notebooks.
+Dependencies are listed in `requirements.txt`. All parameters are centralized in `config.py`, no hardcoded values appear inside functions or notebooks.
+
+---
+
+## Team
+
+Group project by **Mean-Squared-Terrors** for the Deloitte x LUISS 2026 final project:
+
+| | |
+|---|---|
+| Filippo Nannucci | [@FilippoNannucci](https://github.com/FilippoNannucci) |
+| Gabriele Loreti | [@Gloreti03](https://github.com/Gloreti03) |
+| Daniele Giovanardi | [@DanieleGiovanardi2408](https://github.com/DanieleGiovanardi2408) |
+| Alessio | [@alessi0x](https://github.com/alessi0x) |
+
+The commit history in this repository is the original one and preserves each author's contributions.

@@ -5,3 +5,6 @@ src/io/
 .ipynb_checkpoints/
 __pycache__/
 .claude/
+
+# Internal template, not for the public repo
+APPENDIX_B_template.md
